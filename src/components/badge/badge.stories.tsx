@@ -1,5 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import Badge from "./badge";
+import { RatesBadge } from "./rates-badge";
+import { Statuses } from "./statuses";
+import StopStatuses from "./stop-statuses";
 
 const meta = {
   title: "Components/Badge",
@@ -8,14 +11,7 @@ const meta = {
   argTypes: {
     variant: {
       control: { type: "select" },
-      options: [
-        "success",
-        "info",
-        "infoSecondary",
-        "warning",
-        "error",
-        "outline",
-      ],
+      options: ["success", "info", "warning", "error", "outline"],
       description: "Visual variant of the badge",
     },
     size: {
@@ -71,7 +67,7 @@ export const Variants: Story = {
     docs: {
       description: {
         story:
-          "Six available variants: success, info, infoSecondary, warning, error, and outline. Each variant has distinct colors for different use cases.",
+          "Five available variants: success, info, warning, error, and outline. Each variant has distinct colors for different use cases.",
       },
     },
   },
@@ -79,7 +75,6 @@ export const Variants: Story = {
     <div className="flex flex-wrap gap-3">
       <Badge variant="success">Success</Badge>
       <Badge variant="info">Info</Badge>
-      <Badge variant="infoSecondary">Info Secondary</Badge>
       <Badge variant="warning">Warning</Badge>
       <Badge variant="error">Error</Badge>
       <Badge variant="outline">Outline</Badge>
@@ -138,41 +133,34 @@ export const StatusIndicators: Story = {
     },
   },
   render: () => (
-    <div className="flex flex-col gap-4">
-      <div className="flex items-center gap-3">
-        <span className="text-sm font-medium text-muted-foreground">
-          Status:
-        </span>
-        <Badge variant="success" size="small">
-          ACTIVE
-        </Badge>
-      </div>
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-4">
+        <div className="flex items-center gap-3">
+          <span className="text-sm font-medium text-muted-foreground">
+            Order Status:
+          </span>
+          <Statuses status="ACTIVE" size="small" />
+        </div>
 
-      <div className="flex items-center gap-3">
-        <span className="text-sm font-medium text-muted-foreground">
-          Status:
-        </span>
-        <Badge variant="info" size="small">
-          PENDING
-        </Badge>
-      </div>
+        <div className="flex items-center gap-3">
+          <span className="text-sm font-medium text-muted-foreground">
+            Dispatch Status:
+          </span>
+          <Statuses status="IN_PROGRESS" size="small" />
+        </div>
 
-      <div className="flex items-center gap-3">
-        <span className="text-sm font-medium text-muted-foreground">
-          Status:
-        </span>
-        <Badge variant="warning" size="small">
-          IN PROGRESS
-        </Badge>
-      </div>
-
-      <div className="flex items-center gap-3">
-        <span className="text-sm font-medium text-muted-foreground">
-          Status:
-        </span>
-        <Badge variant="error" size="small">
-          CANCELLED
-        </Badge>
+        <div className="flex items-center gap-3">
+          <span className="text-sm font-medium text-muted-foreground">
+            Completion:
+          </span>
+          <Statuses status="PENDING" size="small" />
+        </div>
+        <div className="flex items-center gap-3">
+          <span className="text-sm font-medium text-muted-foreground">
+            General Status:
+          </span>
+          <Statuses status="CANCELLED" size="small" />
+        </div>
       </div>
     </div>
   ),
@@ -243,91 +231,21 @@ export const RateTypes: Story = {
     },
   },
   render: () => (
-    <div className="flex flex-col gap-4">
-      <div className="flex items-center gap-3">
-        <span className="text-sm font-medium text-muted-foreground">
-          Rate Type:
-        </span>
-        <Badge variant="success" size="small" className="uppercase">
-          TL
-        </Badge>
-      </div>
-
-      <div className="flex items-center gap-3">
-        <span className="text-sm font-medium text-muted-foreground">
-          Rate Type:
-        </span>
-        <Badge variant="info" size="small" className="uppercase">
-          LTL
-        </Badge>
-      </div>
-
-      <div className="flex items-center gap-3">
-        <span className="text-sm font-medium text-muted-foreground">
-          Available Types:
-        </span>
-        <div className="flex gap-2">
-          <Badge variant="success" size="small" className="uppercase">
-            TL
-          </Badge>
-          <Badge variant="info" size="small" className="uppercase">
-            LTL
-          </Badge>
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-4">
+        <div className="flex items-center gap-3">
+          <span className="text-sm font-medium text-muted-foreground">
+            Single Rate:
+          </span>
+          <RatesBadge value="TL" variant="single" />
         </div>
-      </div>
-    </div>
-  ),
-};
 
-export const InsuranceStatus: Story = {
-  parameters: {
-    layout: "padded",
-    docs: {
-      description: {
-        story:
-          "Insurance status indicators showing current state, expiration warnings, and expired status.",
-      },
-    },
-  },
-  render: () => (
-    <div className="flex flex-col gap-4">
-      <div className="flex items-center gap-3">
-        <span className="text-sm font-medium text-muted-foreground uppercase">
-          Insurance Status
-        </span>
-        <Badge
-          variant="success"
-          size="small"
-          className="text-xs font-bold rounded-full"
-        >
-          UP TO DATE
-        </Badge>
-      </div>
-
-      <div className="flex items-center gap-3">
-        <span className="text-sm font-medium text-muted-foreground uppercase">
-          Insurance Status
-        </span>
-        <Badge
-          variant="warning"
-          size="small"
-          className="text-xs font-bold rounded-full"
-        >
-          EXPIRING SOON
-        </Badge>
-      </div>
-
-      <div className="flex items-center gap-3">
-        <span className="text-sm font-medium text-muted-foreground uppercase">
-          Insurance Status
-        </span>
-        <Badge
-          variant="error"
-          size="small"
-          className="text-xs font-bold rounded-full"
-        >
-          EXPIRED
-        </Badge>
+        <div className="flex items-center gap-3">
+          <span className="text-sm font-medium text-muted-foreground">
+            Multiple Rates:
+          </span>
+          <RatesBadge value={["TL", "LTL"]} />
+        </div>
       </div>
     </div>
   ),
@@ -353,132 +271,88 @@ export const CompanyFeatures: Story = {
           EDI
         </Badge>
       </div>
+    </div>
+  ),
+};
 
-      <div className="flex items-center gap-3">
-        <span className="font-semibold text-foreground">XYZ Logistics</span>
-        <Badge variant="info" size="small" className="w-8 h-5 px-1 py-0">
-          EDI
-        </Badge>
+export const StatusesComponent: Story = {
+  parameters: {
+    layout: "padded",
+    docs: {
+      description: {
+        story:
+          "Statuses component for displaying dispatch status with automatic variant mapping and consistent styling.",
+      },
+    },
+  },
+  render: () => (
+    <div className="flex flex-col gap-6">
+      <div>
+        <p className="text-lg font-semibold mb-3">All Status Types</p>
+        <div className="flex flex-wrap gap-3">
+          <Statuses status="ACTIVE" size="small" />
+          <Statuses status="PENDING" size="small" />
+          <Statuses status="IN_PROGRESS" size="small" />
+          <Statuses status="COMPLETED" size="small" />
+          <Statuses status="CANCELLED" size="small" />
+        </div>
       </div>
 
-      <div className="flex items-center gap-3">
-        <span className="font-semibold text-foreground">
-          Quick Delivery Co.
-        </span>
-        <div className="flex gap-1">
-          <Badge variant="info" size="small" className="w-8 h-5 px-1 py-0">
-            EDI
-          </Badge>
-          <Badge variant="success" size="small" className="w-8 h-5 px-1 py-0">
-            24/7
-          </Badge>
+      <div>
+        <p className="text-lg font-semibold mb-3">Size Comparison</p>
+        <div className="flex flex-col gap-4">
+          <div className="flex items-center gap-4">
+            <Statuses status="ACTIVE" size="small" />
+            <Statuses status="ACTIVE" size="large" />
+          </div>
+          <div className="flex items-center gap-4">
+            <Statuses status="PENDING" size="small" />
+            <Statuses status="PENDING" size="large" />
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p className="text-lg font-semibold mb-3">Real-world Usage</p>
+        <div className="p-4 border border-border rounded-lg bg-background w-80">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-sm font-medium">Order Status:</span>
+            <Statuses status="IN_PROGRESS" size="small" />
+          </div>
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-sm font-medium">Dispatch Status:</span>
+            <Statuses status="ACTIVE" size="small" />
+          </div>
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-medium">Completion:</span>
+            <Statuses status="COMPLETED" size="small" />
+          </div>
         </div>
       </div>
     </div>
   ),
 };
 
-export const DeliveryStatus: Story = {
+export const StopStatusesComponent: Story = {
   parameters: {
     layout: "padded",
     docs: {
       description: {
         story:
-          "Delivery status indicators with visual dots showing pickup, delivery, and completion states.",
+          "StopStatuses component for displaying delivery stop statuses with visual indicators and priority levels.",
       },
     },
   },
   render: () => (
-    <div className="flex flex-col gap-4">
-      <div className="flex items-center gap-3">
-        <Badge className="p-2 gap-1.5 rounded-full flex flex-row w-fit bg-info">
-          <div className="w-2 h-2 rounded-full bg-info-foreground"></div>
-          PICKUP SCHEDULED
-        </Badge>
-      </div>
-
-      <div className="flex items-center gap-3">
-        <Badge className="p-2 gap-1.5 rounded-full flex flex-row w-fit bg-warning">
-          <div className="w-2 h-2 rounded-full bg-warning-foreground"></div>
-          DELIVERY DELAYED
-        </Badge>
-      </div>
-
-      <div className="flex items-center gap-3">
-        <Badge className="p-2 gap-1.5 rounded-full flex flex-row w-fit bg-success">
-          <div className="w-2 h-2 rounded-full bg-success-foreground"></div>
-          DELIVERED
-        </Badge>
-      </div>
-
-      <div className="flex items-center gap-3">
-        <Badge className="p-2 gap-1.5 rounded-full flex flex-row w-fit bg-error">
-          <div className="w-2 h-2 rounded-full bg-error-foreground"></div>
-          CANCELLED
-        </Badge>
-      </div>
-    </div>
-  ),
-};
-
-export const CustomStyling: Story = {
-  parameters: {
-    layout: "padded",
-    docs: {
-      description: {
-        story:
-          "Custom styled badges with additional CSS classes for specific design requirements.",
-      },
-    },
-  },
-  render: () => (
-    <div className="flex flex-col gap-4">
-      <div className="flex items-center gap-3">
-        <span className="text-sm font-medium text-muted-foreground">
-          Custom Success:
-        </span>
-        <Badge
-          variant="success"
-          className="bg-primary text-primary-foreground px-3 py-1 rounded-full"
-        >
-          Custom Success
-        </Badge>
-      </div>
-
-      <div className="flex items-center gap-3">
-        <span className="text-sm font-medium text-muted-foreground">
-          Custom Info:
-        </span>
-        <Badge
-          variant="info"
-          className="bg-info text-info-foreground px-3 py-1 rounded-full"
-        >
-          Custom Info
-        </Badge>
-      </div>
-
-      <div className="flex items-center gap-3">
-        <span className="text-sm font-medium text-muted-foreground">
-          Custom Warning:
-        </span>
-        <Badge
-          variant="warning"
-          className="bg-warning text-warning-foreground px-3 py-1 rounded-full"
-        >
-          Custom Warning
-        </Badge>
-      </div>
-
-      <div className="flex items-center gap-3">
-        <span className="text-sm font-medium text-muted-foreground">
-          Custom Error:
-        </span>
-        <Badge
-          variant="error"
-          className="bg-error text-error-foreground px-3 py-1 rounded-full"
-        >
-          Custom Error
-        </Badge>
+    <div className="flex flex-col gap-6">
+      <div>
+        <p className="text-lg font-semibold mb-3">All Status Types</p>
+        <div className="flex flex-col gap-3">
+          <StopStatuses status="PICKUP_SCHEDULED" severitySuffix="medium" />
+          <StopStatuses status="DELIVERY_DELAYED" severitySuffix="high" />
+          <StopStatuses status="DELIVERED" severitySuffix="low" />
+          <StopStatuses status="CANCELLED" severitySuffix="medium" />
+        </div>
       </div>
     </div>
   ),

@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Store, CircleDollarSign, MapPin, Edit } from "lucide-react";
+import { Store, User, Settings, Mail, Phone, MapPin } from "lucide-react";
 
 import { Button } from "../button";
-
 import {
   Card,
   CardContent,
@@ -11,14 +10,38 @@ import {
   CardHeader,
   CardTitle,
 } from "./card";
-import Badge from "../badge/badge";
+import { CarrierDetailsCard as CarrierDetailsCardComponent } from "./carrier-details-card";
+import { CardActionMenu } from "./card-action-menu";
+import { Label } from "../label";
+import { Input } from "../input";
 
 const meta: Meta<typeof Card> = {
-  title: "Lib Card",
+  title: "Components/Card",
   component: Card,
   tags: ["autodocs"],
   parameters: {
     layout: "centered",
+    docs: {
+      description: {
+        component: `
+The Card component provides a flexible container for displaying content with consistent styling and spacing. 
+It supports various layouts including headers, content, footers, and action menus.
+
+## Key Features
+- **Flexible Layout**: Support for header, content, and footer sections
+- **Action Menus**: Integrated dropdown menus with absolute positioning
+- **Custom Components**: Specialized cards like CarrierDetailsCard for specific use cases
+- **Responsive Design**: Adapts to different screen sizes
+- **Accessibility**: Built with accessibility best practices
+
+## Usage Patterns
+- **Basic Cards**: Simple content display
+- **Interactive Cards**: With buttons and form elements
+- **Action Cards**: With dropdown menus for multiple actions
+- **Specialized Cards**: Domain-specific layouts like carrier details
+        `,
+      },
+    },
   },
 } satisfies Meta<typeof Card>;
 
@@ -26,8 +49,24 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-// Basic Card Examples
+/**
+ * BASIC CARD LAYOUTS
+ * These stories demonstrate the fundamental card structure and variations
+ */
+
+/**
+ * Default card with all sections (header, content, footer).
+ * Use this as the standard card layout for most content.
+ */
 export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Standard card layout with header, content, and footer sections. This is the most common card pattern.",
+      },
+    },
+  },
   render: () => (
     <Card className="w-[350px]">
       <CardHeader>
@@ -44,7 +83,19 @@ export const Default: Story = {
   ),
 };
 
+/**
+ * Minimal card with only title and content.
+ * Perfect for simple information display without footer actions.
+ */
 export const Simple: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Minimal card layout with only header and content. Ideal for simple information display without footer actions.",
+      },
+    },
+  },
   render: () => (
     <Card className="w-[350px]">
       <CardHeader>
@@ -57,154 +108,115 @@ export const Simple: Story = {
   ),
 };
 
-// Real-world Usage: Carrier Details Card Style (based on details-card.tsx)
-export const CarrierDetailsStyle: Story = {
+/**
+ * Card without header section.
+ * Useful when you need to start directly with content.
+ */
+export const WithoutHeader: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Card without header section. Use when you need to start directly with content or have custom header styling.",
+      },
+    },
+  },
   render: () => (
-    <Card className="w-full bg-neutral-800 rounded-b-3xl py-10 px-12 mb-4 relative">
-      <div className="flex flex-row">
-        <div className="flex gap-10 w-full">
-          <div className="flex flex-col w-48 items-start gap-4">
-            <div className="bg-icon-strong p-4 rounded-full gap-2.5">
-              <Store className="w-6 h-6 stroke-warning-foreground stroke-1" />
-            </div>
-            <p className="text-2xl font-bold text-warning-foreground text-start">
-              Details
-            </p>
-          </div>
-          <div className="flex-1">
-            <div className="grid grid-cols-4 grid-rows-2 gap-10">
-              <div className="flex flex-col gap-1 row-start-1 row-end-2 col-start-1 col-end-5">
-                <p className="font-bold text-white text-xl">ABC Transport Inc.</p>
-                <p className="font-normal text-sm text-neutral-300 uppercase">
-                  Carrier Name
-                </p>
-              </div>
-              <div className="flex flex-col gap-1 row-start-2 row-end-3 col-start-1 col-end-2">
-                <p className="font-normal text-sm text-neutral-300 uppercase">
-                  US DOT #
-                </p>
-                <p className="font-normal text-sm text-white uppercase">123456</p>
-              </div>
-              <div className="flex flex-col gap-1 row-start-2 row-end-3 col-start-2 col-end-3">
-                <p className="font-normal text-sm text-neutral-300 uppercase">
-                  SCAC
-                </p>
-                <p className="font-normal text-sm text-white uppercase">ABCT</p>
-              </div>
-              <div className="flex flex-col gap-1 row-start-2 row-end-3 col-start-3 col-end-4">
-                <p className="font-normal text-sm text-neutral-300 uppercase">
-                  MC #
-                </p>
-                <p className="font-normal text-sm text-white uppercase">789012</p>
-              </div>
-              <div className="flex flex-col gap-1 row-start-2 row-end-3 col-start-4 col-end-5">
-                <p className="font-normal text-sm text-neutral-300 uppercase text-nowrap">
-                  COMMUNICATION BY EDI
-                </p>
-                <Badge
-                  variant="success"
-                  size="small"
-                  className="text-xs font-bold rounded-full text-white capitalize w-fit py-[3px] px-1.5"
-                >
-                  Yes
-                </Badge>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="absolute top-4 right-4">
-        <Button variant="tertiary" size="small">
-          <Edit className="w-4 h-4" />
-        </Button>
-      </div>
+    <Card className="w-[350px]">
+      <CardContent className="pt-6">
+        <p>This card doesn't have a header section.</p>
+        <p>All content is in the main content area.</p>
+      </CardContent>
     </Card>
   ),
 };
 
-// Real-world Usage: Rates Card Style (based on rates-card.tsx)
-export const RatesCardStyle: Story = {
+/**
+ * Card without footer section.
+ * Clean layout focusing on content without action buttons.
+ */
+export const WithoutFooter: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Card without footer section. Clean layout focusing on content without action buttons.",
+      },
+    },
+  },
   render: () => (
-    <Card className="w-1/2 bg-neutral-800 rounded-3xl py-10 px-12 mb-4 relative">
-      <div className="flex flex-row">
-        <div className="flex gap-10 w-full">
-          <div className="flex flex-col w-48 items-start gap-4">
-            <div className="bg-icon-strong p-4 rounded-full gap-2.5">
-              <CircleDollarSign className="w-6 h-6 stroke-warning-foreground stroke-1" />
-            </div>
-            <p className="text-2xl font-bold text-warning-foreground text-start">
-              Rates
-            </p>
-          </div>
-          <div className="flex-1">
-            <div className="flex flex-col gap-6">
-              <div className="flex flex-col gap-1">
-                <p className="font-normal text-sm text-neutral-300 uppercase">
-                  Rate Type
-                </p>
-                <Badge variant="info" className="w-fit">
-                  Flat Rate
-                </Badge>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <Card className="w-[350px]">
+      <CardHeader>
+        <CardTitle>Card without Footer</CardTitle>
+        <CardDescription>
+          This card doesn't have a footer section.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p>Card content goes here.</p>
+      </CardContent>
     </Card>
   ),
 };
 
-// Real-world Usage: Location Card Style (based on location-card.tsx)
-export const LocationCardStyle: Story = {
+/**
+ * INTERACTIVE CARDS
+ * These stories demonstrate cards with interactive elements
+ */
+
+/**
+ * Card with form elements and submit action.
+ * Perfect for data collection and user input scenarios.
+ */
+export const WithForm: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Card containing form elements with labels and inputs. Ideal for data collection and user input scenarios.",
+      },
+    },
+  },
   render: () => (
-    <Card className="w-full bg-neutral-800 rounded-3xl py-10 px-12 mb-4 relative">
-      <div className="flex flex-row">
-        <div className="flex gap-10 w-full">
-          <div className="flex flex-col w-48 items-start gap-4">
-            <div className="bg-icon-strong p-4 rounded-full gap-2.5">
-              <MapPin className="w-6 h-6 stroke-warning-foreground stroke-1" />
-            </div>
-            <p className="text-2xl font-bold text-warning-foreground text-start">
-              Location
-            </p>
-          </div>
-          <div className="flex-1">
-            <div className="grid grid-cols-3 gap-x-10 gap-y-6 mb-6">
-              <div className="col-start-1 col-end-2 gap-3 pb-6 text-white">
-                <p className="font-normal text-sm text-neutral-300 uppercase">
-                  Address
-                </p>
-                <p className="text-base font-normal">123 Main Street</p>
-                <p className="text-base font-normal">Chicago, IL, 60601</p>
-              </div>
-              <div className="col-start-2 col-end-3">
-                <p className="text-sm font-normal text-neutral-300 uppercase mb-1">
-                  Website
-                </p>
-                <p className="text-sm font-normal text-white">www.example.com</p>
-              </div>
-              <div className="col-start-3 col-end-3 gap-4 pb-6">
-                <div className="bg-black w-[300px] rounded-xl p-6 gap-6 text-white">
-                  <div className="gap-3 h-full">
-                    <p className="text-sm font-bold uppercase text-neutral-300">
-                      WORKING HOURS
-                    </p>
-                    <div className="text-sm font-normal text-white">
-                      Mon-Fri: 8AM-5PM
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+    <Card className="w-[350px]">
+      <CardHeader>
+        <CardTitle>Form Card</CardTitle>
+        <CardDescription>This card contains form elements.</CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <div>
+          <Label>Name</Label>
+          <Input className="w-full" placeholder="Enter your name" />
         </div>
-      </div>
+        <div>
+          <Label>Email</Label>
+          <Input
+            className="w-full"
+            placeholder="Enter your email"
+            type="email"
+          />
+        </div>
+      </CardContent>
+      <CardFooter>
+        <Button className="w-full">Submit</Button>
+      </CardFooter>
     </Card>
   ),
 };
 
-// Card with Actions
+/**
+ * Card with action buttons in footer.
+ * Use for cards that need primary and secondary actions.
+ */
 export const WithActions: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Card with action buttons in the footer. Perfect for cards that need primary and secondary actions.",
+      },
+    },
+  },
   render: () => (
     <Card className="w-[350px]">
       <CardHeader>
@@ -222,26 +234,231 @@ export const WithActions: Story = {
   ),
 };
 
-// Card with Badge
-export const WithBadge: Story = {
+/**
+ * ACTION MENU CARDS
+ * These stories demonstrate cards with dropdown action menus
+ */
+
+/**
+ * Card with action menu positioned absolutely.
+ * Demonstrates different positioning options for action menus.
+ */
+export const WithActionMenu: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Card with dropdown action menu positioned absolutely. Shows different positioning options and multiple actions.",
+      },
+    },
+  },
   render: () => (
-    <Card className="w-[350px]">
+    <div className="space-y-8">
+      <div>
+        <h3 className="text-lg font-semibold mb-4">Top Right (Default)</h3>
+        <Card className="w-[400px] relative">
+          <CardHeader>
+            <CardTitle>Card with Top-Right Menu</CardTitle>
+            <CardDescription>
+              Action menu positioned at top-right corner.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p>
+              This card has the action menu positioned absolutely at the
+              top-right corner.
+            </p>
+          </CardContent>
+          <CardActionMenu
+            options={[
+              { label: "Edit", onSelect: () => console.log("Edit clicked") },
+              {
+                label: "Delete",
+                onSelect: () => console.log("Delete clicked"),
+              },
+            ]}
+            useAbsolutePosition={true}
+            absolutePosition="top-right"
+          />
+        </Card>
+      </div>
+
+      <div>
+        <h3 className="text-lg font-semibold mb-4">Top Left</h3>
+        <Card className="w-[400px] relative">
+          <CardHeader>
+            <CardTitle>Card with Top-Left Menu</CardTitle>
+            <CardDescription>
+              Action menu positioned at top-left corner.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p>
+              This card has the action menu positioned absolutely at the
+              top-left corner.
+            </p>
+          </CardContent>
+          <CardActionMenu
+            options={[
+              { label: "Edit", onSelect: () => console.log("Edit clicked") },
+              {
+                label: "Delete",
+                onSelect: () => console.log("Delete clicked"),
+              },
+            ]}
+            useAbsolutePosition={true}
+            absolutePosition="top-left"
+          />
+        </Card>
+      </div>
+
+      <div>
+        <h3 className="text-lg font-semibold mb-4">Bottom Right</h3>
+        <Card className="w-[400px] relative">
+          <CardHeader>
+            <CardTitle>Card with Bottom-Right Menu</CardTitle>
+            <CardDescription>
+              Action menu positioned at bottom-right corner.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p>
+              This card has the action menu positioned absolutely at the
+              bottom-right corner.
+            </p>
+          </CardContent>
+          <CardActionMenu
+            options={[
+              { label: "Edit", onSelect: () => console.log("Edit clicked") },
+              {
+                label: "Delete",
+                onSelect: () => console.log("Delete clicked"),
+              },
+            ]}
+            useAbsolutePosition={true}
+            absolutePosition="bottom-right"
+          />
+        </Card>
+      </div>
+    </div>
+  ),
+};
+
+/**
+ * Card with multiple action options and disabled states.
+ * Shows advanced action menu capabilities.
+ */
+export const WithAdvancedActionMenu: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Card with advanced action menu showing multiple options, disabled states, and different action types.",
+      },
+    },
+  },
+  render: () => (
+    <Card className="w-[400px] relative">
       <CardHeader>
-        <div className="flex items-center justify-between">
-          <CardTitle>Card with Badge</CardTitle>
-          <Badge variant="success">New</Badge>
-        </div>
-        <CardDescription>This card includes a status badge.</CardDescription>
+        <CardTitle>Advanced Action Menu</CardTitle>
+        <CardDescription>
+          Demonstrates multiple actions with different states.
+        </CardDescription>
       </CardHeader>
       <CardContent>
-        <p>Card content with badge information.</p>
+        <p>This card shows an advanced action menu with:</p>
+        <ul className="list-disc list-inside mt-2 space-y-1">
+          <li>Multiple action options</li>
+          <li>Disabled states</li>
+          <li>Different action types</li>
+        </ul>
       </CardContent>
+      <CardActionMenu
+        options={[
+          { label: "Edit", onSelect: () => console.log("Edit clicked") },
+          {
+            label: "Duplicate",
+            onSelect: () => console.log("Duplicate clicked"),
+          },
+          { label: "Share", onSelect: () => console.log("Share clicked") },
+          {
+            label: "Archive",
+            onSelect: () => console.log("Archive clicked"),
+            disabled: true,
+          },
+          {
+            label: "Delete",
+            onSelect: () => console.log("Delete clicked"),
+            disabled: true,
+          },
+        ]}
+        useAbsolutePosition={true}
+        absolutePosition="top-right"
+      />
     </Card>
   ),
 };
 
-// Multiple Cards Layout (as used in carrier details)
-export const MultipleCards: Story = {
+/**
+ * SPECIALIZED CARDS
+ * These stories demonstrate domain-specific card components
+ */
+
+/**
+ * Carrier Details Card - Specialized card for transportation/logistics.
+ * Shows complex data layout with action menu integration.
+ */
+export const CarrierDetailsCardExample: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Specialized card component for displaying carrier information in transportation/logistics applications. Features complex data layout with integrated action menu.",
+      },
+    },
+  },
+  render: () => (
+    <CarrierDetailsCardComponent
+      icon={Store}
+      title="Details"
+      carrierName="ABC Transport Inc."
+      dotNumber="123456"
+      scac="ABCT"
+      mcNumber="789012"
+      ediCommunication={true}
+      actionOptions={[
+        { label: "Edit", onSelect: () => console.log("Edit clicked") },
+        {
+          label: "Reason Codes",
+          onSelect: () => console.log("Reason Codes clicked"),
+        },
+        {
+          label: "Transmissions",
+          onSelect: () => console.log("Transmissions clicked"),
+        },
+      ]}
+    />
+  ),
+};
+
+/**
+ * LAYOUT PATTERNS
+ * These stories demonstrate common card layout patterns
+ */
+
+/**
+ * Multiple cards in a responsive grid layout.
+ * Common pattern for dashboard and listing views.
+ */
+export const MultipleCardsLayout: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Responsive grid layout with multiple cards. Common pattern for dashboards, listing views, and content organization.",
+      },
+    },
+  },
   render: () => (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       <Card>
@@ -253,7 +470,7 @@ export const MultipleCards: Story = {
           <p>Name, DOT Number, SCAC, MC Number</p>
         </CardContent>
       </Card>
-      
+
       <Card>
         <CardHeader>
           <CardTitle>Rates</CardTitle>
@@ -263,7 +480,7 @@ export const MultipleCards: Story = {
           <p>Rate type and pricing details</p>
         </CardContent>
       </Card>
-      
+
       <Card>
         <CardHeader>
           <CardTitle>Location</CardTitle>
@@ -277,100 +494,60 @@ export const MultipleCards: Story = {
   ),
 };
 
-// Card without Header
-export const WithoutHeader: Story = {
+/**
+ * Card with rich content including icons and structured data.
+ * Demonstrates how to create visually rich cards.
+ */
+export const RichContent: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Card with rich content including icons, structured data, and visual elements. Shows how to create visually appealing cards.",
+      },
+    },
+  },
   render: () => (
-    <Card className="w-[350px]">
-      <CardContent className="pt-6">
-        <p>This card doesn't have a header section.</p>
-        <p>All content is in the main content area.</p>
-      </CardContent>
-    </Card>
-  ),
-};
-
-// Card without Footer
-export const WithoutFooter: Story = {
-  render: () => (
-    <Card className="w-[350px]">
+    <Card className="w-[400px]">
       <CardHeader>
-        <CardTitle>Card without Footer</CardTitle>
-        <CardDescription>This card doesn't have a footer section.</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <p>Card content goes here.</p>
-      </CardContent>
-    </Card>
-  ),
-};
-
-// Custom Styled Card
-export const CustomStyled: Story = {
-  render: () => (
-    <Card className="w-[350px] border-2 border-blue-200 bg-blue-50">
-      <CardHeader className="bg-blue-100">
-        <CardTitle className="text-blue-800">Custom Styled Card</CardTitle>
-        <CardDescription className="text-blue-600">
-          This card has custom styling applied.
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="bg-blue-50">
-        <p className="text-blue-700">Custom styled content.</p>
-      </CardContent>
-      <CardFooter className="bg-blue-100">
-        <Button className="bg-blue-600 hover:bg-blue-700">Custom Button</Button>
-      </CardFooter>
-    </Card>
-  ),
-};
-
-// Card with Form Elements
-export const WithForm: Story = {
-  render: () => (
-    <Card className="w-[350px]">
-      <CardHeader>
-        <CardTitle>Form Card</CardTitle>
-        <CardDescription>This card contains form elements.</CardDescription>
+        <CardTitle className="flex items-center gap-2">
+          <User className="w-5 h-5" />
+          User Profile
+        </CardTitle>
+        <CardDescription>Complete user information</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div>
-          <label className="text-sm font-medium">Name</label>
-          <input 
-            className="w-full p-2 border rounded-md" 
-            placeholder="Enter your name"
-          />
+        <div className="flex items-center gap-3">
+          <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
+            <User className="w-6 h-6 text-gray-600" />
+          </div>
+          <div>
+            <h3 className="font-semibold">John Doe</h3>
+            <p className="text-sm text-gray-600">Software Engineer</p>
+          </div>
         </div>
-        <div>
-          <label className="text-sm font-medium">Email</label>
-          <input 
-            className="w-full p-2 border rounded-md" 
-            placeholder="Enter your email"
-            type="email"
-          />
-        </div>
-      </CardContent>
-      <CardFooter>
-        <Button className="w-full">Submit</Button>
-      </CardFooter>
-    </Card>
-  ),
-};
 
-// Dark Theme Card (as used in the app)
-export const DarkTheme: Story = {
-  render: () => (
-    <Card className="w-[350px] bg-neutral-800 text-white border-neutral-700">
-      <CardHeader>
-        <CardTitle className="text-white">Dark Theme Card</CardTitle>
-        <CardDescription className="text-neutral-300">
-          This card uses the dark theme styling from the app.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <p className="text-neutral-200">Content in dark theme.</p>
+        <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            <Mail className="w-4 h-4 text-gray-500" />
+            <span className="text-sm">john.doe@example.com</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Phone className="w-4 h-4 text-gray-500" />
+            <span className="text-sm">+1 (555) 123-4567</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <MapPin className="w-4 h-4 text-gray-500" />
+            <span className="text-sm">San Francisco, CA</span>
+          </div>
+        </div>
       </CardContent>
-      <CardFooter>
-        <Button variant="secondary">Action</Button>
+      <CardFooter className="flex gap-2">
+        <Button variant="tertiary" className="flex-1">
+          <Settings className="w-4 h-4 mr-2" />
+          Settings
+        </Button>
+        <Button className="flex-1">Contact</Button>
       </CardFooter>
     </Card>
   ),

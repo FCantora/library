@@ -27,14 +27,18 @@
   /* Light mode colors */
   --color-background: hsl(0 0% 100%);
   --color-foreground: hsl(222.2 84% 4.9%);
+  --color-card: hsl(222, 36%, 11%);
+  --color-card-foreground: hsl(347, 36%, 23%);
   --color-primary: hsl(38 51% 47%);
   --color-primary-foreground: hsl(0 0% 100%);
   --color-secondary: oklch(0.97 0 0);
   --color-secondary-foreground: oklch(0.205 0 0);
-  --color-muted: oklch(0.97 0 0);
-  --color-muted-foreground: oklch(0.556 0 0);
-  --color-accent: oklch(0.97 0 0);
-  --color-accent-foreground: oklch(0.205 0 0);
+  --color-muted: hsl(210 40% 96.1%);
+  --color-muted-foreground: hsl(215.4 16.3% 46.9%);
+  --color-accent: hsl(210 40% 96.1%);
+  --color-accent-foreground: hsl(222.2 47.4% 11.2%);
+  --color-popover: hsl(222, 36%, 11%);
+  --color-popover-foreground: hsl(222.2 84% 4.9%);
   --color-info: hsl(246, 29%, 21%);
   --color-info-foreground: hsl(244, 48%, 76%);
   --color-error: hsl(4, 63%, 41%);
