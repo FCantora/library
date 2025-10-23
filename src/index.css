@@ -21,8 +21,9 @@
 
 @theme {
   /* Font families */
-  --font-sans: "Poppins", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-  
+  --font-sans: "Poppins", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+
   /* Light mode colors */
   --color-background: hsl(0 0% 100%);
   --color-foreground: hsl(222.2 84% 4.9%);
@@ -34,12 +35,18 @@
   --color-muted-foreground: oklch(0.556 0 0);
   --color-accent: oklch(0.97 0 0);
   --color-accent-foreground: oklch(0.205 0 0);
+  --color-info: hsl(246, 29%, 21%);
+  --color-info-foreground: hsl(244, 48%, 76%);
   --color-error: hsl(4, 63%, 41%);
+  --color-error-foreground: hsl(2, 74%, 56%);
   --color-success: hsl(138, 84%, 10%);
+  --color-success-foreground: hsl(136, 46%, 52%);
+  --color-warning: hsl(27, 97%, 27%);
+  --color-warning-foreground: hsl(39, 38%, 71%);
   --color-border: oklch(0.922 0 0);
   --color-input: oklch(0.922 0 0);
   --color-ring: oklch(0.708 0 0);
-  
+
   /* Border radius */
   --radius-sm: 0.375rem;
   --radius: 0.5rem;
