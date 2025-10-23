@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Store, CircleDollarSign, MapPin, Edit } from "lucide-react";
 
 import { Button } from "../button";
-import { Badge } from "../badge";
 
 import {
   Card,
@@ -12,6 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "./card";
+import Badge from "../badge/badge";
 
 const meta: Meta<typeof Card> = {
   title: "Lib Card",
@@ -114,7 +114,7 @@ export const CarrierDetailsStyle: Story = {
         </div>
       </div>
       <div className="absolute top-4 right-4">
-        <Button variant="ghost" size="sm">
+        <Button variant="tertiary" size="small">
           <Edit className="w-4 h-4" />
         </Button>
       </div>
@@ -142,7 +142,7 @@ export const RatesCardStyle: Story = {
                 <p className="font-normal text-sm text-neutral-300 uppercase">
                   Rate Type
                 </p>
-                <Badge variant="secondary" className="w-fit">
+                <Badge variant="info" className="w-fit">
                   Flat Rate
                 </Badge>
               </div>
@@ -215,7 +215,7 @@ export const WithActions: Story = {
         <p>Card content with some information.</p>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button variant="outline">Cancel</Button>
+        <Button variant="tertiary">Cancel</Button>
         <Button>Save</Button>
       </CardFooter>
     </Card>
@@ -229,7 +229,7 @@ export const WithBadge: Story = {
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle>Card with Badge</CardTitle>
-          <Badge variant="secondary">New</Badge>
+          <Badge variant="success">New</Badge>
         </div>
         <CardDescription>This card includes a status badge.</CardDescription>
       </CardHeader>
