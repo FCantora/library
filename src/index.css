@@ -41,6 +41,7 @@
   --color-popover-foreground: hsl(222.2 84% 4.9%);
   --color-info: hsl(246, 29%, 21%);
   --color-info-foreground: hsl(244, 48%, 76%);
+  --color-info-lighter: hsl(221, 82%, 67%);
   --color-error: hsl(4, 63%, 41%);
   --color-error-foreground: hsl(2, 74%, 56%);
   --color-success: hsl(138, 84%, 10%);

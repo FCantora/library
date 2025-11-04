@@ -1,7 +1,7 @@
 import Badge from "./badge";
 
 type StatusType = "info" | "warning" | "success" | "error" | "check-call";
-type Severity = "low" | "medium" | "high" | "critical";
+export type Severity = "low" | "medium" | "high" | "critical" | null;
 
 // Mock constants for the component
 const ALL_STOPS_STATUS_OPTIONS_LABELS = {
@@ -21,6 +21,15 @@ const ALL_STOPS_STATUS_OPTIONS_LABELS = {
   CANCELLED_LOW: "Cancelled (Low Priority)",
   CANCELLED_MEDIUM: "Cancelled (Medium Priority)",
   CANCELLED_HIGH: "Cancelled (High Priority)",
+  APPOINTMENT: "Appointment",
+  APPOINTMENT_WARNING: "Appointment (Warning)",
+  ARRIVAL: "Arrival",
+  ARRIVAL_LATE: "Arrival (Late)",
+  ARRIVAL_WARNING: "Arrival (Warning)",
+  DEPARTURE: "Departure",
+  DEPARTURE_LATE: "Departure (Late)",
+  DEPARTURE_WARNING: "Departure (Warning)",
+  ON_TIME: "On Time",
 } as const;
 
 const STOPS_STATUS_OPTIONS = [
@@ -40,6 +49,15 @@ const STOPS_STATUS_OPTIONS = [
   { key: "CANCELLED_LOW", status: "error" as StatusType },
   { key: "CANCELLED_MEDIUM", status: "error" as StatusType },
   { key: "CANCELLED_HIGH", status: "error" as StatusType },
+  { key: "APPOINTMENT", status: "info" as StatusType },
+  { key: "APPOINTMENT_WARNING", status: "warning" as StatusType },
+  { key: "ARRIVAL", status: "info" as StatusType },
+  { key: "ARRIVAL_LATE", status: "error" as StatusType },
+  { key: "ARRIVAL_WARNING", status: "warning" as StatusType },
+  { key: "DEPARTURE", status: "info" as StatusType },
+  { key: "DEPARTURE_LATE", status: "error" as StatusType },
+  { key: "DEPARTURE_WARNING", status: "warning" as StatusType },
+  { key: "ON_TIME", status: "success" as StatusType },
 ];
 
 type StopStatusesProps = {
@@ -64,19 +82,14 @@ const BackgroundColors: Record<StatusType, string> = {
 };
 
 const StopStatuses = (props: StopStatusesProps) => {
-  const { status, severitySuffix } = props;
+  const { status } = props;
 
-  const stopStatusKey = `${status}${
-    severitySuffix ? `_${severitySuffix.toLocaleUpperCase()}` : ""
-  }` as keyof typeof ALL_STOPS_STATUS_OPTIONS_LABELS;
+  const stopStatusKey =
+    status as keyof typeof ALL_STOPS_STATUS_OPTIONS_LABELS;
 
-  const stopStatusLabel = `${
-    ALL_STOPS_STATUS_OPTIONS_LABELS[stopStatusKey] || ""
-  }`;
+  const stopStatusLabel = ALL_STOPS_STATUS_OPTIONS_LABELS[stopStatusKey] || "";
 
-  const statusOption = STOPS_STATUS_OPTIONS.find(
-    (s) => s.key === stopStatusKey
-  );
+  const statusOption = STOPS_STATUS_OPTIONS.find((s) => s.key === status);
 
   const variantStatus = statusOption?.status as StatusType;
 

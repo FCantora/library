@@ -1,0 +1,81 @@
+.row-parent {
+  background-color: hsl(222.2 84% 4.9%);
+
+  &:hover {
+    background-color: hsl(222, 53%, 15%);
+  }
+
+  & td:first-of-type {
+    border-radius: 12px 0 0 12px;
+  }
+
+  & td:last-of-type {
+    border-radius: 0 12px 12px 0;
+  }
+
+  &.open {
+    td:first-of-type {
+      border-radius: 12px 0 0 0;
+      background-color: inherit;
+    }
+
+    td:last-of-type {
+      border-radius: 0 12px 0 0;
+      background-color: inherit;
+    }
+  }
+}
+
+.row-child {
+  background-color: hsl(222, 56%, 16%);
+  border: none;
+  cursor: default;
+
+  &:hover {
+    background-color: hsl(246, 29%, 21%);
+  }
+}
+
+.last-row-child {
+  border-bottom: 6px solid hsl(var(--background));
+  td:first-of-type {
+    border-radius: 0 0 0 12px;
+  }
+  td:last-of-type {
+    border-radius: 0 0 12px 0;
+  }
+}
+
+.icon-bg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50px;
+  left: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.icon-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 10%;
+  width: 1px;
+  height: 100%;
+  background-color: hsla(136, 46%, 52%);
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.icon-bg-first::before {
+  top: 50%;
+  height: 50%;
+}
+
+.icon-bg-last::before {
+  bottom: 50%;
+  height: 50%;
+}
