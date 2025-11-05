@@ -38,7 +38,7 @@ const SingleDatePicker = ({
   }, [day]);
 
   const dateClass = React.useMemo(
-    () => (disabled ? "text-neutral-300" : "dark:text-white text-neutral-500"),
+    () => (disabled ? "text-neutral-500" : "text-neutral-300"),
     [disabled]
   );
 
@@ -109,16 +109,14 @@ const SingleDatePicker = ({
       <PopoverTrigger
         disabled={disabled}
         className={cn(
-          "flex flex-row justify-between py-2 px-4 p-2 items-center w-full h-10 text-sm",
-          "border border-neutral-400 rounded-md",
-          "disabled:cursor-not-allowed disabled:bg-neutral-600 disabled:text-neutral-300",
+          "flex flex-row justify-between py-2 px-4 p-2 items-center w-full h-10 text-sm border placeholder:text-neutral-600 border-neutral-400 rounded-md text-neutral-300 bg-neutral-800 disabled:cursor-not-allowed disabled:bg-neutral-700 disabled:text-neutral-500",
           className
         )}
       >
         <p className={dateClass}>{displayLabel}</p>
 
         <CalendarIcon
-          className={cn("h-6 w-6 text-primary", disabled && "text-neutral-300")}
+          className={cn("h-6 w-6 text-primary", disabled && "text-neutral-500")}
         />
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start">

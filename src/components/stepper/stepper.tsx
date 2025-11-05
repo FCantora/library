@@ -77,7 +77,7 @@ function StepperStep({
     bulletBorder = "border-success";
 
     bulletContent = (
-      <CheckIcon className="w-4 h-4 stroke-2" aria-label="Completed" />
+      <CheckIcon className="w-4 h-4 stroke-3 text-white" aria-label="Completed" />
     );
   } else if (isCurrent) {
     bulletBg = "bg-primary";

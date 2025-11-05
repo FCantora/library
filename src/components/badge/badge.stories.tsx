@@ -139,21 +139,21 @@ export const StatusIndicators: Story = {
           <span className="text-sm font-medium text-muted-foreground">
             Order Status:
           </span>
-          <Statuses status="ACTIVE" size="small" />
+          <Statuses status="OFFERED" size="small" />
         </div>
 
         <div className="flex items-center gap-3">
           <span className="text-sm font-medium text-muted-foreground">
             Dispatch Status:
           </span>
-          <Statuses status="IN_PROGRESS" size="small" />
+          <Statuses status="OPEN" size="small" />
         </div>
 
         <div className="flex items-center gap-3">
           <span className="text-sm font-medium text-muted-foreground">
             Completion:
           </span>
-          <Statuses status="PENDING" size="small" />
+          <Statuses status="DELIVERED" size="small" />
         </div>
         <div className="flex items-center gap-3">
           <span className="text-sm font-medium text-muted-foreground">
@@ -290,10 +290,9 @@ export const StatusesComponent: Story = {
       <div>
         <p className="text-lg font-semibold mb-3">All Status Types</p>
         <div className="flex flex-wrap gap-3">
-          <Statuses status="ACTIVE" size="small" />
-          <Statuses status="PENDING" size="small" />
-          <Statuses status="IN_PROGRESS" size="small" />
-          <Statuses status="COMPLETED" size="small" />
+          <Statuses status="OFFERED" size="small" />
+          <Statuses status="EDI_UPDATE" size="small" />
+          <Statuses status="DELIVERED" size="small" />
           <Statuses status="CANCELLED" size="small" />
         </div>
       </div>
@@ -302,30 +301,12 @@ export const StatusesComponent: Story = {
         <p className="text-lg font-semibold mb-3">Size Comparison</p>
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-4">
-            <Statuses status="ACTIVE" size="small" />
-            <Statuses status="ACTIVE" size="large" />
+            <Statuses status="DELIVERED" size="small" />
+            <Statuses status="DELIVERED" size="large" />
           </div>
           <div className="flex items-center gap-4">
-            <Statuses status="PENDING" size="small" />
-            <Statuses status="PENDING" size="large" />
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <p className="text-lg font-semibold mb-3">Real-world Usage</p>
-        <div className="p-4 border border-border rounded-lg bg-background w-80">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-sm font-medium">Order Status:</span>
-            <Statuses status="IN_PROGRESS" size="small" />
-          </div>
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-sm font-medium">Dispatch Status:</span>
-            <Statuses status="ACTIVE" size="small" />
-          </div>
-          <div className="flex items-center justify-between">
-            <span className="text-sm font-medium">Completion:</span>
-            <Statuses status="COMPLETED" size="small" />
+            <Statuses status="OFFERED" size="small" />
+            <Statuses status="OFFERED" size="large" />
           </div>
         </div>
       </div>

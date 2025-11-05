@@ -86,33 +86,37 @@ export function RangeDatePicker(props: RangeDatePickerProps) {
     setOpen(false);
   }, []);
 
-  const dateClass = React.useMemo(
-    () => (disabled ? "text-neutral-300" : "dark:text-white text-neutral-500"),
-    [disabled]
-  );
-
   return (
     <div className={cn("grid gap-2", className)}>
       <Popover open={open} onOpenChange={handleOpenChange}>
-        <PopoverTrigger asChild disabled={disabled}>
-          <div
+        <PopoverTrigger asChild>
+          <button
+            type="button"
+            disabled={disabled}
+            onClick={() => !disabled && setOpen(true)}
             className={cn(
-              "w-[260px] flex items-center p-1 text-sm cursor-pointer",
-              "border border-neutral-400 rounded-md",
-              "disabled:cursor-not-allowed disabled:bg-neutral-600 disabled:text-neutral-300"
+              "flex h-10 w-full items-center justify-between rounded-md border border-neutral-400 bg-neutral-800 px-3 py-2 text-sm ring-offset-neutral-700",
+              "text-neutral-300 placeholder:text-neutral-600",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2",
+              "disabled:cursor-not-allowed disabled:bg-neutral-700 disabled:text-neutral-500",
+              "hover:enabled:bg-neutral-700 transition-colors"
             )}
           >
-            <span className="text-neutral-400 text-xs font-bold mr-4">
-              {label}
-            </span>
-            <p className={cn("font-bold", dateClass)}>{dateSelected}</p>
+            <div className="flex items-center gap-3">
+              <span className="text-xs font-bold text-neutral-300">
+                {label}
+              </span>
+              <p className={cn("font-bold", disabled ? "text-neutral-500" : "text-neutral-300")}>
+                {dateSelected}
+              </p>
+            </div>
             <CalendarIcon
               className={cn(
-                "ml-auto h-4 w-4 text-neutral-400",
-                disabled && "text-neutral-300"
+                "h-4 w-4",
+                disabled ? "text-neutral-500" : "text-neutral-300"
               )}
             />
-          </div>
+          </button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0" align="start">
           <Calendar
