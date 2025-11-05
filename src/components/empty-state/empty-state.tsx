@@ -9,25 +9,9 @@ import {
 } from "lucide-react";
 
 import { Button } from "@/components/button";
+import type { EmptyStatesProps } from "./empty-state.types";
 
-type IconType =
-  | "load"
-  | "carrier"
-  | "milestones"
-  | "customerRate"
-  | "carrierRate"
-  | "filters";
-
-type EmptyStatesProps = {
-  iconType: IconType;
-  title: string;
-  paragraph: string;
-  actionLabel?: string;
-  handleActionClick?: () => void;
-  variant?: "primary" | "tertiary";
-};
-
-const Icons = {
+const ICONS = {
   load: <PackageX size={80} strokeWidth={1} />,
   milestones: <MapPinX size={80} strokeWidth={1} />,
   customerRate: <Store size={80} strokeWidth={1} />,
@@ -49,7 +33,7 @@ export const EmptyState = (props: EmptyStatesProps) => {
   return (
     <div className="flex flex-col items-center justify-center text-center px-14 py-20 gap-6">
       <div className="flex flex-col items-center gap-6">
-        {Icons[iconType]}
+        {ICONS[iconType]}
         <div className="max-w-[420px] flex flex-col gap-6">
           <p className="text-2xl font-bold text-neutral-800">{title}</p>
           <p className="text-base text-neutral-600">{paragraph}</p>

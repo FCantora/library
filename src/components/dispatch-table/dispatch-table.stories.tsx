@@ -4,18 +4,40 @@ import { dispatchListOk } from "./dispatch-table.mock";
 import DispatchColumns from "./dispatch-table-columns";
 
 const meta: Meta<typeof DispatchTable> = {
-  title: "DispatchTable",
+  title: "Components/DispatchTable",
   component: DispatchTable,
   tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
+    docs: {
+      description: {
+        component: `
+The DispatchTable component is designed to display and manage dispatch information in a table format.
+It provides features for sorting, filtering, expanding rows to show detailed information, and more.
+
+## Key Features
+- **Customizable Columns**: Define custom columns with specific data rendering.
+- **Expandable Rows**: Support for expanding rows to display additional information like multistop data.
+- **Empty State**: Graceful handling of empty data states with user-friendly messaging.
+- **Flexible Data**: Works with various data formats and structures.
+- **Responsive**: Adapts to different screen sizes and layouts.
+
+## Usage Patterns
+- **Basic Table**: Display a list of dispatches with standard columns.
+- **Expandable Rows**: Show additional details for specific rows (multistop, milestones, etc.).
+- **Empty State**: Handle cases where no data is available.
+`,
+      },
+    },
   },
   argTypes: {
     columns: {
       description: "An array of column definitions for the table.",
+      table: { disable: true },
     },
     data: {
       description: "An array of data to be displayed in the table.",
+      table: { disable: true },
     },
   },
 };

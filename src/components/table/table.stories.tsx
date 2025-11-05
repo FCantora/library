@@ -57,11 +57,29 @@ const invoices = [
 ];
 
 const meta = {
-  title: "Table",
+  title: "Components/Table",
   component: Table,
   tags: ["autodocs"],
   parameters: {
     layout: "centered",
+    docs: {
+      description: {
+        component: `
+The Table component is a collection of sub-components that can be used to create a table.
+It is built on top of the native HTML table elements and provides a set of components that can be used to create a table with a consistent style.
+
+## Key Features
+- **Accessible**: The component is built with accessibility in mind.
+- **Customizable**: The component can be customized with CSS classes.
+- **Flexible**: The component can be used in a variety of contexts.
+
+## Usage Patterns
+- **Basic table**: Create a simple table with a header, body, and footer.
+- **Table with caption**: Add a caption to the table.
+- **Sortable table**: Create a table that can be sorted by clicking on the column headers.
+`,
+      },
+    },
   },
   render: () => (
     <Table>

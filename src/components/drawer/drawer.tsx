@@ -9,22 +9,8 @@ import {
 } from "@/components/ui/sheet";
 
 import { Button } from "@/components/button";
-
-interface DrawerProps extends React.HTMLAttributes<HTMLDivElement> {
-  title: string;
-  action: () => void;
-  onDismiss: () => void;
-  onOpenChange: (open: boolean) => void;
-  dismissLabel?: string;
-  confirmLabel?: string;
-  footerContent?: React.ReactNode;
-  open?: boolean;
-  size?: "carriers" | "edit";
-  disabled?: boolean;
-  disableCancel?: boolean;
-  hasAlert?: boolean;
-  sheetClassName?: string;
-}
+import type { DrawerProps } from "./drawer.types";
+import { CONFIRM_LABEL, DISMISS_LABEL } from "./drawer.constants";
 
 export const Drawer = (props: DrawerProps) => {
   const {
@@ -32,8 +18,8 @@ export const Drawer = (props: DrawerProps) => {
     onDismiss,
     onOpenChange,
     children,
-    confirmLabel,
-    dismissLabel,
+    confirmLabel = CONFIRM_LABEL,
+    dismissLabel = DISMISS_LABEL,
     footerContent,
     title,
     open,
@@ -51,9 +37,13 @@ export const Drawer = (props: DrawerProps) => {
           <SheetTitle>{title}</SheetTitle>
         </SheetHeader>
         {hasAlert ? (
-          <div className="flex flex-col gap-4 p-4 overflow-y-auto">{children}</div>
+          <div className="flex flex-col gap-4 p-4 overflow-y-auto">
+            {children}
+          </div>
         ) : (
-          <div className={cn("p-4 overflow-y-auto", sheetClassName)}>{children}</div>
+          <div className={cn("p-4 overflow-y-auto", sheetClassName)}>
+            {children}
+          </div>
         )}
         <SheetFooter>
           {footerContent ? (
@@ -67,7 +57,7 @@ export const Drawer = (props: DrawerProps) => {
                   onClick={onDismiss}
                   disabled={disableCancel ?? false}
                 >
-                  {dismissLabel || "Cancel"}
+                  {dismissLabel}
                 </Button>
               </SheetPrimitive.Close>
               <Button
@@ -76,7 +66,7 @@ export const Drawer = (props: DrawerProps) => {
                 size="medium"
                 disabled={disabled}
               >
-                {confirmLabel || "Confirm"}
+                {confirmLabel}
               </Button>
             </>
           )}
